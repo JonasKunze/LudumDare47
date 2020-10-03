@@ -12,7 +12,7 @@ namespace DefaultNamespace
         
         public bool running = false;
         public static UnityEvent OnGameStarted = new UnityEvent();
-        public static UnityEvent OnGamePaused = new UnityEvent();
+        public static UnityEvent OnGameStopped = new UnityEvent();
 
         private void Awake()
         {
@@ -52,7 +52,7 @@ namespace DefaultNamespace
         public void StartGame()
         {
             if (running)
-                OnGamePaused?.Invoke();
+                OnGameStopped?.Invoke();
             else
                 OnGameStarted?.Invoke();
             running = !running;
