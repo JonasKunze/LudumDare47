@@ -11,11 +11,10 @@ namespace DefaultNamespace
         [SerializeField] private float speedFactor = 10;
 
         private Interactable _interactable;
-        
+
         private void Start()
         {
-            Spawn();
-
+            Menu.OnGameStarted.AddListener(() => { Spawn(); });
             _interactable = GetComponentInChildren<Interactable>();
         }
 
@@ -25,7 +24,8 @@ namespace DefaultNamespace
                 go = Instantiate(ballPrefab, transform.position, quaternion.identity);
 
 
-            go.transform.position = transform.position + (go.transform.localScale.x + transform.localScale.x) / 2 * transform.right;
+            go.transform.position = transform.position +
+                                    (go.transform.localScale.x + transform.localScale.x) / 2 * transform.right;
 
             var ball = go.GetComponent<Ball>();
             ball.spawner = this;
@@ -35,7 +35,7 @@ namespace DefaultNamespace
             go.gameObject.GetComponent<Rigidbody2D>().velocity = speed * transform.right;
             return ball;
         }
-        
+
         public void OnCreationStart(Transform parent, Vector3 startPosition)
         {
             var tr = GetTransform();
@@ -62,7 +62,7 @@ namespace DefaultNamespace
 
             var position = center;
             var rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        
+
             transform.position = position;
             transform.rotation = rotation;
             transform.localScale = new Vector3(dir.magnitude, transform.localScale.y, 0);
