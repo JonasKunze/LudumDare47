@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -56,6 +55,11 @@ namespace DefaultNamespace
             else
                 OnGameStarted?.Invoke();
             running = !running;
+        }
+
+        public void Save()
+        {
+            SerializationHandler.SerializeScene();
         }
     }
 }

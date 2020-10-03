@@ -1,35 +1,39 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 
-public class Platform : MonoBehaviour, IInteractable
+public class Platform : SerializableObject, IInteractable
 {
     [SerializeField] private Interactable interactable = null;
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    
+
     [SerializeField] private SpriteRenderer _spriteRendererGlow;
-    
+
     public PlatformProperties properties;
-    
+
     private float _glowCurrentTime;
     private readonly float _glowMaxLifeTime = 0.4f;
+
+    public int blueprintIndex;
 
     private void Start()
     {
     }
 
-    public void SetProperties(PlatformProperties p)
+    public void SetProperties(PlatformProperties p, int blueprintIndex)
     {
         properties = p;
-        
+
         _spriteRenderer.color = p.color;
+        this.blueprintIndex = blueprintIndex;
     }
-    
+
     public void ColliderHit(GameObject obj, Collision2D info)
     {
         SoundHandler.Instance.PlayClip(properties.clipIndex);
-        
+
         StartCoroutine(GlowCoro());
     }
 
@@ -38,7 +42,7 @@ public class Platform : MonoBehaviour, IInteractable
     IEnumerator GlowCoro()
     {
         _glowCurrentTime = 0;
-        
+
         while (_glowCurrentTime < _glowMaxLifeTime)
         {
             _glowCurrentTime += Time.deltaTime * Mathf.PI / _glowMaxLifeTime;
@@ -47,6 +51,7 @@ public class Platform : MonoBehaviour, IInteractable
             _spriteRendererGlow.color = color;
             yield return null;
         }
+
         var c = _spriteRendererGlow.color;
         c.a = 0;
         _spriteRendererGlow.color = c;
@@ -58,7 +63,7 @@ public class Platform : MonoBehaviour, IInteractable
         color.a = value ? 1 : 0;
         _spriteRendererGlow.color = color;
     }
-    
+
     public void OnCreationStart(Transform parent, Vector3 startPosition)
     {
         var tr = GetTransform();
@@ -84,7 +89,7 @@ public class Platform : MonoBehaviour, IInteractable
 
         var position = center;
         var rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        
+
         transform.position = position;
         transform.rotation = rotation;
         transform.localScale = new Vector3(dir.magnitude, transform.localScale.y, 0);
@@ -93,4 +98,8 @@ public class Platform : MonoBehaviour, IInteractable
     public Transform GetTransform() => transform;
 
     public Interactable GetInteractable() => interactable;
+
+    public override BlueprintIndex GetBlueprintIndex()    {
+        return (BlueprintIndex) blueprintIndex;
+    }
 }
