@@ -8,7 +8,7 @@ public class Creator : MonoBehaviour
 {
     [SerializeField] private SoundPlatform soundPlatformPrefab = null;
     [SerializeField] private BouncerPlatform bouncerPlatformPrefab = null;
-    [SerializeField] private BallPortal ballPortalPrefab = null;
+    [SerializeField] private BallBin ballPortalPrefab = null;
     [SerializeField] private BallSpawner ballSpawnerPrefab = null;
     
     [SerializeField] private Transform spawnParent = null;

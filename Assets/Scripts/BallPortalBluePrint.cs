@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BallPortalBluePrint : IBluePrint
 {
-    private readonly BallPortal _prefab;
+    private readonly BallBin _prefab;
 
-    public BallPortalBluePrint(BallPortal prefab)
+    public BallPortalBluePrint(BallBin prefab)
     {
         _prefab = prefab;
     }

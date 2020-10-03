@@ -2,7 +2,7 @@
 using DefaultNamespace;
 using UnityEngine;
 
-public class BallPortal : MonoBehaviour, IInteractable
+public class BallSpawnTrigger : MonoBehaviour, IInteractable
 {
     private Interactable _interactable;
 
@@ -20,7 +20,7 @@ public class BallPortal : MonoBehaviour, IInteractable
                 Destroy(info.gameObject);
             else
             {
-                ball.spawner.Spawn(ball.gameObject);
+                ball.spawner.Spawn();
             }
         }
     }

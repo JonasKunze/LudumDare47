@@ -31,9 +31,9 @@ public class CameraController : MonoBehaviour
 
         if (Math.Abs(Input.GetAxis("Mouse ScrollWheel")) > 1e-3f)
         {
-            _camera.orthographicSize *= Mathf.Pow(1.2f, -Input.mouseScrollDelta.y);
-            _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize, 0.5f, 10f);
             var worldPos = _camera.ScreenToWorldPoint(mousePosition);
+            _camera.orthographicSize *= Mathf.Pow(1.2f, -Input.mouseScrollDelta.y);
+            _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize, 0.5f, 50f);
             var delta = _camera.ScreenToWorldPoint(mousePosition) - worldPos;
             transform.position -= delta;
         }
