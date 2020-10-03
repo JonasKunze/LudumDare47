@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 5353753415333854820, guid: bef687a350f03bb418d9880369d754f7, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1

@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlatformCreator : MonoBehaviour
 {
     [SerializeField] private Platform platformPrefab = null;
-
+    [SerializeField] private LayerMask mask;
+    
     private static PlatformCreator Instance;
     private static Platform ActivePlatformPrefab;
 
@@ -25,7 +26,7 @@ public class PlatformCreator : MonoBehaviour
     private void Update()
     {
         var ray = _camera.ScreenPointToRay(Input.mousePosition);
-        var hit = Physics2D.Raycast(ray.origin, ray.direction);
+        var hit = Physics2D.Raycast(ray.origin, ray.direction, 100, mask);
         if (hit || Interactable.IsDragging)
             return;
         
