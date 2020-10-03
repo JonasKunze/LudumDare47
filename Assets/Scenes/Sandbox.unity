@@ -704,7 +704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+  m_DragThreshold: -5
 --- !u!4 &1887475500
 Transform:
   m_ObjectHideFlags: 0
@@ -858,6 +858,10 @@ PrefabInstance:
     - target: {fileID: 4486688974644191862, guid: 855d29cd70eb53441b8e90f7a1d4f106, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486688974644191880, guid: 855d29cd70eb53441b8e90f7a1d4f106, type: 3}
+      propertyPath: m_MaxRayIntersections
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4486688974644191881, guid: 855d29cd70eb53441b8e90f7a1d4f106, type: 3}
       propertyPath: m_BackGroundColor.r
