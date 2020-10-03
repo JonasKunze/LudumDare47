@@ -14,8 +14,14 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            Menu.OnGameStarted.AddListener(() => { Spawn(); });
+            Menu.OnGameStarted.AddListener(SpawnOnNextBeat);
             _interactable = GetComponentInChildren<Interactable>();
+        }
+
+        public void SpawnOnNextBeat()
+        {
+            SoundHandler.Instance.ResetBeat();
+            Spawn();
         }
 
         public Ball Spawn(GameObject go = null)

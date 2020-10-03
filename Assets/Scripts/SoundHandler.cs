@@ -7,6 +7,11 @@ using UnityEngine.Events;
 
 public class SoundHandler : MonoBehaviour
 {
+    private float _beatsPerMinute = 120;
+    private float _beatCurrentTime;
+
+    public float BeatTimeDeltaSeconds => 60 / _beatsPerMinute;
+    
     private AudioSource _audioSource;
 
     public List<AudioClip> AudioClips { get; private set; }
@@ -17,6 +22,8 @@ public class SoundHandler : MonoBehaviour
 
     public UnityEvent<int> OnSoundLoaded;
 
+    public UnityEvent BeatTrigger;
+    
     private void Awake()
     {
         Debug.Assert(Instance == null);
@@ -37,6 +44,11 @@ public class SoundHandler : MonoBehaviour
         {
             StartCoroutine(ConvertFilesToAudioClip(file));
         }
+    }
+
+    public void ResetBeat()
+    {
+        _beatCurrentTime = 0;
     }
 
     public void PlayClip(int clipNumber)
@@ -73,5 +85,15 @@ public class SoundHandler : MonoBehaviour
     {
         Debug.Log("All audio clips loaded");
         OnSoundLoaded?.Invoke(AudioClips.Count);
+    }
+
+    private void FixedUpdate()
+    {
+        _beatCurrentTime += Time.fixedDeltaTime;
+        if (_beatCurrentTime > BeatTimeDeltaSeconds)
+        {
+            _beatCurrentTime = 0;
+            BeatTrigger?.Invoke();
+        }
     }
 }
