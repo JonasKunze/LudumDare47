@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using DefaultNamespace;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
+public enum BlueprintIndex
+{
+    Spawner = 0,
+    Bouncer = 1,
+    Bin = 2,
+    PlatformStart = 3
+}
 
 public class Creator : MonoBehaviour
 {
@@ -10,7 +18,7 @@ public class Creator : MonoBehaviour
     [SerializeField] private BouncerPlatform bouncerPlatformPrefab = null;
     [SerializeField] private BallBin ballPortalPrefab = null;
     [SerializeField] private BallSpawner ballSpawnerPrefab = null;
-    
+
     [SerializeField] private Transform spawnParent = null;
     [SerializeField] private LayerMask mask;
 
@@ -18,13 +26,15 @@ public class Creator : MonoBehaviour
 
     [SerializeField] private List<Color> colors;
 
-    private static Creator Instance;
+    public static Creator Instance;
 
     private bool _inCreationMode;
     private IInteractable _current;
 
     private Camera _camera;
     private Vector3 _startMouseWorldPosition;
+
+    [NonSerialized] public int activeBlueprintId = (int) BlueprintIndex.Spawner;
 
     private void Awake()
     {
@@ -40,10 +50,10 @@ public class Creator : MonoBehaviour
 
     private void CreateSoundPlatforms(int nAudioClips)
     {
+        _bluePrints.Add(new BallSpawnerBluePrint(ballSpawnerPrefab));
         _bluePrints.Add(new BouncerPlatformBluePrint(bouncerPlatformPrefab));
         _bluePrints.Add(new BallPortalBluePrint(ballPortalPrefab));
-        _bluePrints.Add(new BallSpawnerBluePrint(ballSpawnerPrefab));
-        
+
         for (int i = 0; i < nAudioClips; i++)
         {
             _bluePrints.Add(new SoundPlatformBluePrint(soundPlatformPrefab,
@@ -68,13 +78,13 @@ public class Creator : MonoBehaviour
 
             _startMouseWorldPosition = mouseWorldPosition;
 
-            _current = _bluePrints[2].Build();
+            _current = _bluePrints[activeBlueprintId].Build();
             _current.OnCreationStart(spawnParent, mouseWorldPosition);
         }
         else if (_inCreationMode && Input.GetMouseButtonUp(0))
         {
             _inCreationMode = false;
-           
+
             _current.OnCreationFinish();
             _current = null;
         }
@@ -84,7 +94,7 @@ public class Creator : MonoBehaviour
             var mousePosition = Input.mousePosition;
             mousePosition.z = -_camera.transform.position.z;
             var mouseWorldPosition = _camera.ScreenToWorldPoint(mousePosition);
-            
+
             _current.OnCreationUpdate(mouseWorldPosition, _startMouseWorldPosition);
         }
     }
