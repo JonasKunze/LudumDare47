@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273796721747522831}
   - component: {fileID: 1273796721747522830}
+  - component: {fileID: 7790929129189900779}
   m_Layer: 0
   m_Name: BallSource
   m_TagString: Untagged
@@ -130,6 +131,20 @@ MonoBehaviour:
   leftGo: {fileID: 1273796722779366542}
   rightGo: {fileID: 1273796722779366542}
   centerGo: {fileID: 1273796722779366542}
+--- !u!114 &7790929129189900779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273796721747522824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a10274e5bf41ff841be7b8664bbceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 7376217962647056786, guid: eebc8e658de55b74f88d56cdacd6000e, type: 3}
+  cadence: 1
 --- !u!1 &1273796722779366542
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +186,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 2dd71fd4274ae0c419be894bf8567f07, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
