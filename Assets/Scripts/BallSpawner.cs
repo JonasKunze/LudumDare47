@@ -11,7 +11,7 @@ namespace DefaultNamespace
         [SerializeField] private float speedFactor = 10;
 
 
-        private void Awake()
+        private void Start()
         {
             Spawn();
         }
