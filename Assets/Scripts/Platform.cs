@@ -4,8 +4,8 @@
 public class Platform : MonoBehaviour
 {
     
-    public void ColliderHit(Collider2D other)
+    public void ColliderHit(GameObject obj, Collision2D info)
     {
-        Debug.LogError($"{other.name}");
+        Debug.LogError($"{obj.name}, {info.gameObject}");
     }
 }
