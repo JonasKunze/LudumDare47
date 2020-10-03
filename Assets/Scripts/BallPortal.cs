@@ -12,8 +12,7 @@ public class BallPortal : MonoBehaviour
                 Destroy(info.gameObject);
             else
             {
-                ball.transform.position = ball.spawner.transform.position;
-                ball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                ball.spawner.Spawn(ball.gameObject);
             }
         }
     }
