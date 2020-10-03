@@ -52,12 +52,4 @@ public class PlatformHandler : MonoBehaviour
     {
         return CreatePlatform(Random.Range(0, GetNPlatforms()));
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CreateRandomPlatform();
-        }
-    }
 }

@@ -35,7 +35,7 @@ public class SoundHandler : MonoBehaviour
 
         foreach (string file in files)
         {
-            StartCoroutine(ConvertFilesToAudioClip(files.First()));
+            StartCoroutine(ConvertFilesToAudioClip(file));
         }
     }
 
@@ -54,7 +54,10 @@ public class SoundHandler : MonoBehaviour
         yield return www;
         var clip = www.GetAudioClip(false, false);
         if (clip != null)
+        {
+            Debug.Log($"Loaded file {name}");
             AudioClips.Add(clip);
+        }
         else
             Debug.LogError($"Failed loading {name}");
 
