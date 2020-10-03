@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa67361d00c6ac46afbc688b89ae348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundPlatformPrefab: {fileID: 6563200247897016500, guid: bef687a350f03bb418d9880369d754f7, type: 3}
+  soundPlatformPrefab: {fileID: -1637852905343406282, guid: bef687a350f03bb418d9880369d754f7, type: 3}
   bouncerPlatformPrefab: {fileID: 6959907976544920375, guid: 982f833dd84045a44b015996a9a6489c, type: 3}
   ballPortalPrefab: {fileID: 8441963761429679977, guid: a67d25fdebb5e9a47af555355112ad48, type: 3}
   ballSpawnerPrefab: {fileID: 7790929129189900779, guid: 200abc43ab08f024f8b828ccdfadad02, type: 3}
