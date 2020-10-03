@@ -16,7 +16,7 @@ namespace DefaultNamespace
 
         void OnBeatTrigger()
         {
-            Instantiate(_beatParticlePrefab, transform.position, Quaternion.identity);
+            Instantiate(_beatParticlePrefab, transform.position, Quaternion.identity, null);
         }
     }
 }

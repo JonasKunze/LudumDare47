@@ -10,6 +10,8 @@ public class SoundHandler : MonoBehaviour
     private float _beatsPerMinute = 120;
     private float _beatCurrentTime;
 
+    [SerializeField] private AudioSource _audioSourcePrefab;
+
     public float BeatTimeDeltaSeconds => 60 / _beatsPerMinute;
     
     private AudioSource _audioSource;
@@ -55,8 +57,20 @@ public class SoundHandler : MonoBehaviour
     {
         if (clipNumber < AudioClips.Count)
         {
+            // _audioSource.clip = AudioClips[clipNumber];
+            // _audioSource.Play();
             _audioSource.PlayOneShot(AudioClips[clipNumber]);
+            // StartCoroutine(PlayAudioClip(AudioClips[clipNumber]));
         }
+    }
+
+    IEnumerator PlayAudioClip(AudioClip clip)
+    {
+        var obj = Instantiate(_audioSourcePrefab);
+        var source = obj.GetComponent<AudioSource>();
+        source.PlayOneShot(clip);
+        yield return new WaitForSeconds(clip.length);
+        Destroy(obj);
     }
 
     private IEnumerator ConvertFilesToAudioClip(string name)
