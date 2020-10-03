@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SoundPlatform : MonoBehaviour
+public class SoundPlatform : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
-    [SerializeField] private Collider2D left, right, center;
-
-
-    private void OnCollisionEnter2D(Collision2D other)
+    public void ColliderHit(Collider2D other)
     {
-        if (other.collider == left)
-        {
-            Debug.LogError($"{other.collider.name}");
-        }
-        else if (other.collider == right)
-        {
-            Debug.LogError($"{other.collider.name}");
-        }
-        else if (other.collider == center)
-        {
-            Debug.LogError($"{other.collider.name}"); 
-        }
+        Debug.LogError($"{other.name}");
     }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(this && eventData.button == PointerEventData.InputButton.Right)
+            Destroy(gameObject);
+    }
+    
+    public void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log(eventData.delta + "OnDrag");    }
 }
