@@ -1,7 +1,7 @@
 ﻿using DefaultNamespace;
 using UnityEngine;
 
-public class BallPortal : MonoBehaviour
+public class BallSpawnTrigger : MonoBehaviour
 {
     public void ColliderHit(GameObject obj, Collision2D info)
     {
@@ -12,7 +12,7 @@ public class BallPortal : MonoBehaviour
                 Destroy(info.gameObject);
             else
             {
-                ball.spawner.Spawn(ball.gameObject);
+                ball.spawner.Spawn();
             }
         }
     }
