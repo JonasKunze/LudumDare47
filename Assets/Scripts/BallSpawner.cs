@@ -39,7 +39,7 @@ namespace DefaultNamespace
 
         private void Stop()
         {
-            foreach (var ball in Resources.FindObjectsOfTypeAll<Ball>())
+            foreach (var ball in GameObject.FindObjectsOfType<Ball>())
             {
                 Destroy(ball.gameObject);
             }
