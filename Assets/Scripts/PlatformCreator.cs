@@ -41,14 +41,20 @@ public class PlatformCreator : MonoBehaviour
             _startMouseWorldPosition = mouseWorldPosition;
             
             _platform = Instantiate(ActivePlatformPrefab);
-            _platform.transform.position = mouseWorldPosition;
-            _platform.transform.localScale = new Vector3(0, _platform.transform.localScale.y, 0);
+            var tr = _platform.transform;
+            tr.position = mouseWorldPosition;
+            tr.localScale = new Vector3(0, tr.localScale.y, 0);
             _platform.SetActive(false);
         }
         else if (_inCreationMode && Input.GetMouseButtonUp(0))
         {
             _inCreationMode = false;
-            _platform.SetActive(true);
+            if (_platform.transform.localScale.x > .3)
+                _platform.SetActive(true);
+            else
+                Destroy(_platform.gameObject);
+
+            _platform = null;
         }
 
         if (_inCreationMode)

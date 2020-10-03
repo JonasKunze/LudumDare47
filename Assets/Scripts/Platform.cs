@@ -29,8 +29,6 @@ public class Platform : MonoBehaviour
     public void ColliderHit(GameObject obj, Collision2D info)
     {
         SoundHandler.Instance.PlayClip(properties.clipIndex);
-
-        Debug.LogError($"{obj.name}, {info.gameObject}");
     }
 
     public void SetActive(bool b) => interactable.SetActive(b);
