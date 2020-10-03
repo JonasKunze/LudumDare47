@@ -15,8 +15,11 @@ public class Platform : MonoBehaviour, IInteractable
     private float _glowCurrentTime;
     private readonly float _glowMaxLifeTime = 0.4f;
 
+    private Color _defaultGlowColor;
+    
     private void Start()
     {
+        _defaultGlowColor = _spriteRendererGlow.material.GetColor("Color_D1776063");
     }
 
     public void SetProperties(PlatformProperties p)
@@ -45,6 +48,7 @@ public class Platform : MonoBehaviour, IInteractable
             var color = _spriteRendererGlow.color;
             color.a = Mathf.Sin(_glowCurrentTime);
             _spriteRendererGlow.color = color;
+
             yield return null;
         }
         var c = _spriteRendererGlow.color;
@@ -52,11 +56,25 @@ public class Platform : MonoBehaviour, IInteractable
         _spriteRendererGlow.color = c;
     }
 
-    public void SetGlow(bool value)
+
+    
+    public void SetGlow(bool value, Color color, float intensity)
     {
-        var color = _spriteRendererGlow.color;
-        color.a = value ? 1 : 0;
-        _spriteRendererGlow.color = color;
+        if (value)
+        {
+            color.r *= intensity;
+            color.g *= intensity;
+            color.b *= intensity;
+            _spriteRendererGlow.material.SetColor("Color_D1776063", color);
+        }
+        else
+        {
+            _spriteRendererGlow.material.SetColor("Color_D1776063", _defaultGlowColor);
+        }
+
+        var c = _spriteRendererGlow.color;
+        c.a = value ? 1 : 0;
+        _spriteRendererGlow.color = c;
     }
     
     public void OnCreationStart(Transform parent, Vector3 startPosition)
