@@ -11,8 +11,12 @@ public class PlatformHandler : MonoBehaviour
     
     private readonly List<PlatformProperties> _platformProperties = new List<PlatformProperties>(10);
 
+    public static PlatformHandler Instance;
+    
     void Start()
     {
+        Debug.Assert(Instance == null);
+        Instance = this;
         SoundHandler.Instance.OnSoundLoaded.AddListener(CreatePlatforms);
     }
 
