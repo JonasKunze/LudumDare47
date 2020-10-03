@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformHandler : MonoBehaviour
 {
@@ -45,5 +47,13 @@ public class PlatformHandler : MonoBehaviour
     public Platform CreateRandomPlatform()
     {
         return CreatePlatform(Random.Range(0, GetNPlatforms()));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CreateRandomPlatform();
+        }
     }
 }
