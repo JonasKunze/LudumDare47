@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 1153048476}
   - component: {fileID: 1153048477}
   m_Layer: 0
-  m_Name: SoundPlatform
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -522,6 +522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3fcb2e8f2156840ae724ab036bb55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftGo: {fileID: 273115474}
+  rightGo: {fileID: 2057671720}
+  centerGo: {fileID: 1365686786}
 --- !u!1 &1345037119
 GameObject:
   m_ObjectHideFlags: 0
