@@ -10,6 +10,7 @@ public struct PlatformProperties
 
 public class Platform : MonoBehaviour
 {
+    [SerializeField] private Interactable interactable = null;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     
     public PlatformProperties properties;
@@ -31,4 +32,6 @@ public class Platform : MonoBehaviour
 
         Debug.LogError($"{obj.name}, {info.gameObject}");
     }
+
+    public void SetActive(bool b) => interactable.SetActive(b);
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,21 +10,17 @@ namespace DefaultNamespace
         [SerializeField] private GameObject ballPrefab;
         [SerializeField] private float cadence = 1;
 
-
         private void Awake()
         {
-            StartCoroutine(SpawnCoro());
+            Spawn();
         }
 
-        private IEnumerator SpawnCoro()
+        public Ball Spawn()
         {
-            var waiter = new WaitForSeconds(cadence);
-
-            while (true)
-            {
-                Instantiate(ballPrefab, transform.position, quaternion.identity);
-                yield return waiter;
-            }
+            var go = Instantiate(ballPrefab, transform.position, quaternion.identity);
+            var ball = go.GetComponent<Ball>();
+            ball.spawner = this;
+            return ball;
         }
     }
 }
