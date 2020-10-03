@@ -69,6 +69,8 @@ public class Creator : MonoBehaviour
         }
 
         OnSetup?.Invoke(activeBlueprintId, _bluePrints.Count - 3);
+        
+        SerializationHandler.LoadLastSong();
     }
 
     private void Update()

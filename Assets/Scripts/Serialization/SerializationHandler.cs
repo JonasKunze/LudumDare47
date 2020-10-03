@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -22,27 +24,56 @@ class SerializedObject
     }
 }
 
+[Serializable]
+class SerializationContainer
+{
+    [SerializeField] private List<SerializedObject> objects;
+
+    public SerializationContainer(List<SerializedObject> objects)
+    {
+        this.objects = objects;
+    }
+
+    public void Instantiate()
+    {
+        foreach (var serializedObject in objects)
+        {
+            serializedObject.Instantiate();
+        }
+    }
+}
+
 public class SerializationHandler
 {
     public static void SerializeScene()
     {
+        List<SerializedObject> serializedObjects = new List<SerializedObject>();
         foreach (var platform in GameObject.FindObjectsOfType<SerializableObject>())
         {
-            SerializedObject obj = new SerializedObject(platform.GetBlueprintIndex(), platform.transform);
-
-            string json = JsonUtility.ToJson(obj);
-            Debug.Log(json);
-
-            var deserialized = JsonUtility.FromJson<SerializedObject>(json);
-            deserialized.Instantiate();
+            serializedObjects.Add(new SerializedObject(platform.GetBlueprintIndex(), platform.transform));
         }
+
+        var container = new SerializationContainer(serializedObjects);
+        string json = JsonUtility.ToJson(container);
+
+        var file = File.CreateText(Application.persistentDataPath + "lastSong");
+        file.Write(json);
+        file.Close();
     }
 
-    public static void Load(string json)
+    public static void LoadLastSong()
     {
-        json =
-            "{\"type\":2,\"trafo\":{\"_position\":[3.0640547275543215,0.5406702756881714,0.0],\"_rotation\":[1.0,0.0,0.0,0.0],\"_scale\":[0.0,1.0,0.0]}}";
-        var obj = JsonUtility.FromJson<SerializedObject>(json);
-        obj.Instantiate();
+        var file = Application.persistentDataPath + "lastSong";
+        if (File.Exists(file))
+        {
+            var sr = File.OpenText(file);
+            var json = sr.ReadToEnd();
+            var obj = JsonUtility.FromJson<SerializationContainer>(json);
+            obj.Instantiate();
+        }
+        else
+        {
+            Debug.Log("Could not Open the file: " + file + " for reading.");
+        }
     }
 }
