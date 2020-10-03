@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public enum BlueprintIndex
 {
@@ -34,7 +36,10 @@ public class Creator : MonoBehaviour
     private Camera _camera;
     private Vector3 _startMouseWorldPosition;
 
-    [NonSerialized] public int activeBlueprintId = (int) BlueprintIndex.PlatformStart;
+    [NonSerialized] public int activeBlueprintId = (int) BlueprintIndex.Spawner;
+    public List<IBluePrint> BluePrints => _bluePrints;
+
+    public static UnityEvent<int, int> OnSetup = new UnityEvent<int, int>();
 
     private void Awake()
     {
@@ -45,30 +50,32 @@ public class Creator : MonoBehaviour
 
     private void Start()
     {
+        _bluePrints.Add(new BallSpawnerBluePrint(ballSpawnerPrefab));
+        _bluePrints.Add(new BouncerPlatformBluePrint(bouncerPlatformPrefab));
+        _bluePrints.Add(new BallBinBluePrint(ballPortalPrefab));
+        
         SoundHandler.Instance.OnSoundLoaded.AddListener(CreateSoundPlatforms);
     }
 
-    private void CreateSoundPlatforms(int nAudioClips)
+    private void CreateSoundPlatforms(List<AudioData> audioData)
     {
-        _bluePrints.Add(new BallSpawnerBluePrint(ballSpawnerPrefab));
-        _bluePrints.Add(new BouncerPlatformBluePrint(bouncerPlatformPrefab));
-        _bluePrints.Add(new BallPortalBluePrint(ballPortalPrefab));
-
-        for (int i = 0; i < nAudioClips; i++)
+        for (int i = 0; i < audioData.Count; i++)
         {
             _bluePrints.Add(new SoundPlatformBluePrint(soundPlatformPrefab,
-                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count]}));
+                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count], name = audioData[i].Title}));
         }
+        
+        OnSetup?.Invoke(activeBlueprintId, _bluePrints.Count - 3);
     }
 
     private void Update()
     {
         var ray = _camera.ScreenPointToRay(Input.mousePosition);
         var hit = Physics2D.Raycast(ray.origin, ray.direction, 100, mask);
-        if (hit || Interactable.IsDragging)
-            return;
 
-        if (!_inCreationMode && Input.GetMouseButton(0))
+        var success = !(hit || Interactable.IsDragging || EventSystem.current.IsPointerOverGameObject());
+
+        if (success && !_inCreationMode && Input.GetMouseButtonDown(0))
         {
             _inCreationMode = true;
 

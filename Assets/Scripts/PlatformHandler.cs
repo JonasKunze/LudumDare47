@@ -17,7 +17,7 @@ public class PlatformHandler : MonoBehaviour
     {
         Debug.Assert(Instance == null);
         Instance = this;
-        SoundHandler.Instance.OnSoundLoaded.AddListener(CreatePlatforms);
+        // SoundHandler.Instance.OnSoundLoaded.AddListener(CreatePlatforms);
     }
 
     private void CreatePlatforms(int nAudioClips)

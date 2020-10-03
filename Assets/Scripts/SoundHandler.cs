@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+
+public struct AudioData
+{
+    public AudioClip Clip;
+    public string Title;
+}
 
 public class SoundHandler : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    public List<AudioClip> AudioClips { get; private set; }
+    public List<AudioData> AudioData { get; private set; }
 
     private static int _nFilesToLoad;
 
     public static SoundHandler Instance;
 
-    public UnityEvent<int> OnSoundLoaded;
+    public UnityEvent<List<AudioData>> OnSoundLoaded;
 
     private void Awake()
     {
@@ -25,7 +32,7 @@ public class SoundHandler : MonoBehaviour
 
     private void Start()
     {
-        AudioClips = new List<AudioClip>();
+        AudioData = new List<AudioData>();
         _audioSource = GetComponent<AudioSource>();
 
         var files = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/Audio", "*.wav").ToList();
@@ -41,9 +48,9 @@ public class SoundHandler : MonoBehaviour
 
     public void PlayClip(int clipNumber)
     {
-        if (clipNumber < AudioClips.Count)
+        if (clipNumber < AudioData.Count)
         {
-            _audioSource.PlayOneShot(AudioClips[clipNumber]);
+            _audioSource.PlayOneShot(AudioData[clipNumber].Clip);
         }
     }
 
@@ -56,7 +63,7 @@ public class SoundHandler : MonoBehaviour
         if (clip != null)
         {
             Debug.Log($"Loaded file {name}");
-            AudioClips.Add(clip);
+            AudioData.Add(new AudioData{Clip = clip, Title = Path.GetFileNameWithoutExtension(name)});
         }
         else
             Debug.LogError($"Failed loading {name}");
@@ -72,6 +79,6 @@ public class SoundHandler : MonoBehaviour
     void OnAudioClipsLoaded()
     {
         Debug.Log("All audio clips loaded");
-        OnSoundLoaded?.Invoke(AudioClips.Count);
+        OnSoundLoaded?.Invoke(AudioData);
     }
 }

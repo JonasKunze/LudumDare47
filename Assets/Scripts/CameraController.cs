@@ -15,6 +15,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
         var mousePosition = Input.mousePosition;
 
         if (!_isMoving && Input.GetMouseButton(1))
