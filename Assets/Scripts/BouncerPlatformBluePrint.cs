@@ -11,4 +11,6 @@ public class BouncerPlatformBluePrint : IBluePrint
     }
 
     public IInteractable Build() => Object.Instantiate(_prefab);
+    public string GetName() => "Bouncer";
+    public Color GetColor() => Color.white;
 }

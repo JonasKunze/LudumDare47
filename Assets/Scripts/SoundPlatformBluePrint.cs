@@ -5,6 +5,7 @@ public struct PlatformProperties
 {
     public int clipIndex;
     public Color color;
+    public string name;
 }
 
 public class SoundPlatformBluePrint : IBluePrint
@@ -25,4 +26,7 @@ public class SoundPlatformBluePrint : IBluePrint
 
         return newGo;
     }
+
+    public string GetName() => _properties.name;
+    public Color GetColor() => _properties.color;
 }
