@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Platform : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler
@@ -9,8 +10,23 @@ public class Platform : MonoBehaviour, IPointerClickHandler, IDragHandler, IBegi
 
     [SerializeField] private GameObject leftGo, rightGo, centerGo;
 
-    private Vector2 left => leftGo.transform.position;
-    private Vector2 right => rightGo.transform.position;
+    private Vector2 left
+    {
+        get => leftGo.transform.position;
+        set { }
+    }
+
+    private Vector2 right
+    {
+        get => rightGo.transform.position;
+        set
+        {
+            transform.position = (left + value) / 2;
+            transform.rotation = Quaternion.FromToRotation(Vector3.right, value - left);
+            transform.localScale = new Vector3((left - value).magnitude, transform.localScale.y, 1);
+        }
+    }
+
     private Vector2 center => transform.position;
 
     public void ColliderHit(Collider2D other)
@@ -33,12 +49,18 @@ public class Platform : MonoBehaviour, IPointerClickHandler, IDragHandler, IBegi
 
     public void OnDrag(PointerEventData eventData)
     {
+        var newPos = (Vector2) Camera.main.ScreenToWorldPoint(eventData.position);
+        var delta = newPos - lastGrabWorldPos;
+        lastGrabWorldPos = newPos;
         if (grabbedObject == centerGo)
         {
-            var newPos = (Vector2) Camera.main.ScreenToWorldPoint(eventData.position);
-            var delta = newPos - lastGrabWorldPos;
-            lastGrabWorldPos = newPos;
             transform.position += new Vector3(delta.x, delta.y, 0);
+        }
+        else if (grabbedObject == rightGo)
+        {
+            right += delta;
+            Debug.DrawLine(newPos, newPos + delta, Color.black, 1);
+            Debug.DrawLine(Vector3.zero, right, Color.red, 1);
         }
     }
 }
