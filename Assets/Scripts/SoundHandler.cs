@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SoundLoader : MonoBehaviour
+public class SoundHandler : MonoBehaviour
 {
     private AudioSource _audioSource;
 
@@ -12,7 +13,9 @@ public class SoundLoader : MonoBehaviour
 
     private static int _nFilesToLoad;
 
-    public static SoundLoader Instance;
+    public static SoundHandler Instance;
+
+    public UnityEvent<int> OnSoundLoaded;
 
     private void Awake()
     {
@@ -37,6 +40,15 @@ public class SoundLoader : MonoBehaviour
         }
     }
 
+    public void PlayClip(int clipNumber)
+    {
+        if (clipNumber < AudioClips.Count)
+        {
+            _audioSource.PlayOneShot(AudioClips[clipNumber]);
+        }
+
+    }
+    
     private IEnumerator ConvertFilesToAudioClip(string name)
     {
         string url = string.Format("file://{0}", name);
@@ -59,5 +71,6 @@ public class SoundLoader : MonoBehaviour
     void OnAudioClipsLoaded()
     {
         Debug.Log("All audio clips loaded");
+        OnSoundLoaded?.Invoke(AudioClips.Count);
     }
 }
