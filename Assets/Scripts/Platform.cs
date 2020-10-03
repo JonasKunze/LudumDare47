@@ -3,13 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public struct PlatformProperties
-{
-    public int clipIndex;
-    public Color color;
-}
-
-public class Platform : MonoBehaviour
+public class Platform : MonoBehaviour, IInteractable
 {
     [SerializeField] private Interactable interactable = null;
     [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -23,7 +17,6 @@ public class Platform : MonoBehaviour
 
     private void Start()
     {
-        Debug.Assert(_spriteRenderer);
     }
 
     public void SetProperties(PlatformProperties p)
@@ -58,4 +51,39 @@ public class Platform : MonoBehaviour
         c.a = 0;
         _spriteRendererGlow.color = c;
     }
+    
+    public void OnCreationStart(Transform parent, Vector3 startPosition)
+    {
+        var tr = GetTransform();
+
+        tr.SetParent(parent);
+        tr.position = startPosition;
+        tr.localScale = new Vector3(0, tr.localScale.y, 0);
+        GetInteractable().SetActive(false);
+    }
+
+    public void OnCreationFinish()
+    {
+        if (transform.localScale.x > .3)
+            SetActive(true);
+        else
+            Destroy(gameObject);
+    }
+
+    public void OnCreationUpdate(Vector3 newPosition, Vector3 startPosition)
+    {
+        var dir = newPosition - startPosition;
+        var center = (startPosition + newPosition) * 0.5f;
+
+        var position = center;
+        var rotation = Quaternion.FromToRotation(Vector3.right, dir);
+        
+        transform.position = position;
+        transform.rotation = rotation;
+        transform.localScale = new Vector3(dir.magnitude, transform.localScale.y, 0);
+    }
+
+    public Transform GetTransform() => transform;
+
+    public Interactable GetInteractable() => interactable;
 }

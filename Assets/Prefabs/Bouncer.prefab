@@ -205,8 +205,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4350272429607394408}
-  - component: {fileID: 4350272429607394409}
   - component: {fileID: 4350272429607394410}
+  - component: {fileID: 6959907976544920375}
   m_Layer: 9
   m_Name: Bouncer
   m_TagString: Untagged
@@ -232,20 +232,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4350272429607394409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4350272429607394415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d3fcb2e8f2156840ae724ab036bb55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactable: {fileID: 4350272429607394410}
-  _spriteRenderer: {fileID: 4350272429398761653}
 --- !u!114 &4350272429607394410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +247,20 @@ MonoBehaviour:
   leftGo: {fileID: 4350272428317993638}
   rightGo: {fileID: 4350272429775591388}
   centerGo: {fileID: 4350272429410499062}
+--- !u!114 &6959907976544920375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350272429607394415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b66b166d8646e8bb9a1583602e818e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 4350272429607394410}
+  _spriteRenderer: {fileID: 0}
 --- !u!1 &4350272429775591388
 GameObject:
   m_ObjectHideFlags: 0

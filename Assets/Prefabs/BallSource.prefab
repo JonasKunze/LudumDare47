@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 7376217962647056786, guid: eebc8e658de55b74f88d56cdacd6000e, type: 3}
+  speedFactor: 10
 --- !u!1 &5154660187503259583
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,19 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCollisionEnter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Platform, Assembly-CSharp
-        m_MethodName: ColliderHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onCollisionExit:
     m_PersistentCalls:
       m_Calls: []
@@ -306,19 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCollisionEnter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Platform, Assembly-CSharp
-        m_MethodName: ColliderHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onCollisionExit:
     m_PersistentCalls:
       m_Calls: []
@@ -394,19 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCollisionEnter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Platform, Assembly-CSharp
-        m_MethodName: ColliderHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onCollisionExit:
     m_PersistentCalls:
       m_Calls: []

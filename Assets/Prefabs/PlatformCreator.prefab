@@ -43,7 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa67361d00c6ac46afbc688b89ae348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundPlatformPrefab: {fileID: 8474343024676847408, guid: bef687a350f03bb418d9880369d754f7, type: 3}
+  bouncerPlatformPrefab: {fileID: 6959907976544920375, guid: 982f833dd84045a44b015996a9a6489c, type: 3}
+  ballPortalPrefab: {fileID: 8441963761429679977, guid: a67d25fdebb5e9a47af555355112ad48, type: 3}
+  ballSpawnerPrefab: {fileID: 7790929129189900779, guid: 200abc43ab08f024f8b828ccdfadad02, type: 3}
   spawnParent: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 513
+  colors:
+  - {r: 0.5176471, g: 0.36862746, b: 0.7607843, a: 1}
+  - {r: 0.8392157, g: 0.3647059, b: 0.69411767, a: 1}
+  - {r: 1, g: 0.43529412, b: 0.5686275, a: 1}
+  - {r: 1, g: 0.5882353, b: 0.44313726, a: 1}
+  - {r: 1, g: 0.78039217, b: 0.37254903, a: 1}
+  - {r: 0.9764706, g: 0.972549, b: 0.44313726, a: 1}
