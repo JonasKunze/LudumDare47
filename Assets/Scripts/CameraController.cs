@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CameraController : MonoBehaviour, IDragHandler, IScrollHandler
+public class CameraController : MonoBehaviour, IDragHandler, IBeginDragHandler,IScrollHandler
 
 {
     private Vector2 _lastGrabWorldPos;
@@ -20,7 +20,6 @@ public class CameraController : MonoBehaviour, IDragHandler, IScrollHandler
         
         var newPos = (Vector2) _camera.ScreenToWorldPoint(eventData.position);
         var delta = newPos - _lastGrabWorldPos;
-        _lastGrabWorldPos = newPos;
         transform.position -= new Vector3(delta.x, delta.y, 0);
     }
 
@@ -30,5 +29,11 @@ public class CameraController : MonoBehaviour, IDragHandler, IScrollHandler
         _camera.orthographicSize *= Mathf.Pow(1.2f, -eventData.scrollDelta.y);
         var delta = _camera.ScreenToWorldPoint(eventData.position) - worldPos;
         transform.position -= delta;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        var newPos = (Vector2) _camera.ScreenToWorldPoint(eventData.position);
+        _lastGrabWorldPos = newPos;
     }
 }
