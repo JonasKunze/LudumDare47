@@ -10,6 +10,17 @@ public class SoundPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other == left)
+        if (other.collider == left)
+        {
+            Debug.LogError($"{other.collider.name}");
+        }
+        else if (other.collider == right)
+        {
+            Debug.LogError($"{other.collider.name}");
+        }
+        else if (other.collider == center)
+        {
+            Debug.LogError($"{other.collider.name}"); 
+        }
     }
 }
