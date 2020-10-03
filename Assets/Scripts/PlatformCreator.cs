@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class PlatformCreator : MonoBehaviour
 {
-    [SerializeField] private Platform platformPrefab = null;
+    [SerializeField] private Transform spawnParent = null;
     [SerializeField] private LayerMask mask;
     
     private static PlatformCreator Instance;
-    private static Platform ActivePlatformPrefab;
 
     private bool _inCreationMode;
     private Platform _platform;
@@ -18,8 +17,7 @@ public class PlatformCreator : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        ActivePlatformPrefab = platformPrefab;
-        
+
         _camera = Camera.main;
     }
 
@@ -40,8 +38,10 @@ public class PlatformCreator : MonoBehaviour
 
             _startMouseWorldPosition = mouseWorldPosition;
             
-            _platform = Instantiate(ActivePlatformPrefab);
+            _platform = PlatformHandler.Instance.CreateRandomPlatform();
             var tr = _platform.transform;
+            
+            tr.SetParent(spawnParent);
             tr.position = mouseWorldPosition;
             tr.localScale = new Vector3(0, tr.localScale.y, 0);
             _platform.SetActive(false);
