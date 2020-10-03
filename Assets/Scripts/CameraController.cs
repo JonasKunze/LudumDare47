@@ -15,6 +15,9 @@ public class CameraController : MonoBehaviour, IDragHandler, IScrollHandler
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            return;
+        
         var newPos = (Vector2) _camera.ScreenToWorldPoint(eventData.position);
         var delta = newPos - _lastGrabWorldPos;
         _lastGrabWorldPos = newPos;
