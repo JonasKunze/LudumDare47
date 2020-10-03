@@ -14,11 +14,12 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            Menu.OnGameStarted.AddListener(SpawnOnNextBeat);
+            Menu.OnGameStarted.AddListener(() => { SpawnAndResetBeat(); });
+            Menu.OnGameStopped.AddListener(() => { Stop(); });
             _interactable = GetComponentInChildren<Interactable>();
         }
 
-        public void SpawnOnNextBeat()
+        public void SpawnAndResetBeat()
         {
             SoundHandler.Instance.ResetBeat();
             Spawn();
@@ -40,6 +41,14 @@ namespace DefaultNamespace
 
             go.gameObject.GetComponent<Rigidbody2D>().velocity = speed * transform.right;
             return ball;
+        }
+
+        private void Stop()
+        {
+            foreach (var ball in GameObject.FindObjectsOfType<Ball>())
+            {
+                Destroy(ball.gameObject);
+            }
         }
 
         public void OnCreationStart(Transform parent, Vector3 startPosition)
