@@ -13,18 +13,21 @@ public class Platform : MonoBehaviour, IPointerClickHandler, IDragHandler, IBegi
     private Vector2 left
     {
         get => leftGo.transform.position;
-        set { }
+        set => SetPosition(value, right);
     }
 
     private Vector2 right
     {
         get => rightGo.transform.position;
-        set
-        {
-            transform.position = (left + value) / 2;
-            transform.rotation = Quaternion.FromToRotation(Vector3.right, value - left);
-            transform.localScale = new Vector3((left - value).magnitude, transform.localScale.y, 1);
-        }
+        set => SetPosition(left, value);
+    }
+
+    private void SetPosition(Vector2 left, Vector2 right)
+    {
+        var delta = right - left;
+        transform.position = (left + right) / 2;
+        transform.rotation = Quaternion.FromToRotation(Vector3.right, delta);
+        transform.localScale = new Vector3(delta.magnitude, transform.localScale.y, 1);
     }
 
     private Vector2 center => transform.position;
@@ -59,8 +62,10 @@ public class Platform : MonoBehaviour, IPointerClickHandler, IDragHandler, IBegi
         else if (grabbedObject == rightGo)
         {
             right += delta;
-            Debug.DrawLine(newPos, newPos + delta, Color.black, 1);
-            Debug.DrawLine(Vector3.zero, right, Color.red, 1);
+        }
+        else if (grabbedObject == leftGo)
+        {
+            left += delta;
         }
     }
 }
