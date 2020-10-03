@@ -34,7 +34,7 @@ public class Creator : MonoBehaviour
     private Camera _camera;
     private Vector3 _startMouseWorldPosition;
 
-    [NonSerialized] public int activeBlueprintId = (int) BlueprintIndex.Spawner;
+    [NonSerialized] public int activeBlueprintId = (int) BlueprintIndex.PlatformStart;
 
     private void Awake()
     {
