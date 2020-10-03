@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa67361d00c6ac46afbc688b89ae348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 5353753415333854820, guid: bef687a350f03bb418d9880369d754f7, type: 3}
+  spawnParent: {fileID: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513

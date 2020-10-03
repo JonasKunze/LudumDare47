@@ -11,7 +11,6 @@ public class Interactable : MonoBehaviour,  IPointerClickHandler, IDragHandler, 
     [SerializeField] private GameObject leftGo, rightGo, centerGo;
 
     private Camera _camera;
-    private bool _isActive = true;
     private Collider2D[] _colliders;
 
     private void Awake()
@@ -45,24 +44,33 @@ public class Interactable : MonoBehaviour,  IPointerClickHandler, IDragHandler, 
 
     public void SetActive(bool value)
     {
-        _isActive = value;
+        enabled = value;
         
         foreach (var col in _colliders)
-            col.enabled = _isActive;
+            col.enabled = enabled;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (this && eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+        
+        if (this)
             Destroy(gameObject);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!_isActive || IsDragging)
+        if (IsDragging)
+            return;
+        
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        IsDragging = true;
+        IsDragging = eventData.pointerEnter != null;
+        
+        if (!IsDragging)
+            return;
         
         _grabbedObject = eventData.pointerEnter.gameObject;
         _lastGrabWorldPos = _camera.ScreenToWorldPoint(eventData.position);
@@ -70,7 +78,10 @@ public class Interactable : MonoBehaviour,  IPointerClickHandler, IDragHandler, 
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!_isActive || !IsDragging)
+        if (!IsDragging)
+            return;
+        
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
         
         var newPos = (Vector2) _camera.ScreenToWorldPoint(eventData.position);

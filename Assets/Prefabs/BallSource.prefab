@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273796721609828830}
   - component: {fileID: 1273796721609828829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1273796721747522831}
   - component: {fileID: 1273796721747522830}
   - component: {fileID: 7790929129189900779}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BallSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273796722779366541}
   - component: {fileID: 1273796722779366540}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

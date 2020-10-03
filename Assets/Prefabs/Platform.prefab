@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5353753415001421165}
   - component: {fileID: 5353753415001421164}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5353753415033664976}
   - component: {fileID: 5353753415033664979}
   - component: {fileID: 749626965927717462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 5353753415333854820}
   - component: {fileID: 5353753415333854823}
   - component: {fileID: 27211508}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5353753415678919353}
   - component: {fileID: 5353753415678919352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 5353753415700618234}
   - component: {fileID: 5353753415700618237}
   - component: {fileID: 4787529613262714189}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 5353753416759724202}
   - component: {fileID: 5353753416759724205}
   - component: {fileID: 5147598343948838612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
