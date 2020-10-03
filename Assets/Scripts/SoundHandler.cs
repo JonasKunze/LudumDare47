@@ -27,15 +27,14 @@ public class SoundHandler : MonoBehaviour
     {
         AudioClips = new List<AudioClip>();
         _audioSource = GetComponent<AudioSource>();
-        
+
         var files = System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/Audio", "*.wav").ToList();
         // files.AddRange(System.IO.Directory.GetFiles(Application.streamingAssetsPath + "/Audio", "*.mp3"));
 
         _nFilesToLoad = files.Count;
-        
+
         foreach (string file in files)
         {
-            Debug.Log("Loading wav file " + file);
             StartCoroutine(ConvertFilesToAudioClip(files.First()));
         }
     }
@@ -46,15 +45,14 @@ public class SoundHandler : MonoBehaviour
         {
             _audioSource.PlayOneShot(AudioClips[clipNumber]);
         }
-
     }
-    
+
     private IEnumerator ConvertFilesToAudioClip(string name)
     {
         string url = string.Format("file://{0}", name);
         WWW www = new WWW(url);
         yield return www;
-        var clip = www.GetAudioClip(false,false);
+        var clip = www.GetAudioClip(false, false);
         if (clip != null)
             AudioClips.Add(clip);
         else
