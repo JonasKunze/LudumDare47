@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 5353753415333854821}
   - component: {fileID: 5353753415333854820}
   - component: {fileID: 5353753415333854823}
+  - component: {fileID: 27211508}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -281,6 +282,32 @@ MonoBehaviour:
   leftGo: {fileID: 5353753416759724203}
   rightGo: {fileID: 5353753415033664977}
   centerGo: {fileID: 5353753415700618235}
+--- !u!114 &27211508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353753415333854818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 0
+  m_CastsShadows: 1
+  m_SelfShadows: 1
+  m_ApplyToSortingLayers: fd256c7a00000000
+  m_ShapePath:
+  - {x: -0.5, y: -0.125, z: 0}
+  - {x: 0.5, y: -0.125, z: 0}
+  - {x: 0.5, y: 0.125, z: 0}
+  - {x: -0.5, y: 0.125, z: 0}
+  m_ShapePathHash: 831911189
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -155538
 --- !u!1 &5353753415678919366
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +358,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 040e58277ad6762449af30e5c3e04b0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -352,8 +379,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9fc1955aa12a8f543b45d21f7a97a9aa, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4eb5dda0f29c588488fe49d91015e3b4, type: 3}
+  m_Color: {r: 0.12815951, g: 0.39205393, b: 0.6037736, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
