@@ -51,6 +51,13 @@ public class Platform : MonoBehaviour, IInteractable
         c.a = 0;
         _spriteRendererGlow.color = c;
     }
+
+    public void SetGlow(bool value)
+    {
+        var color = _spriteRendererGlow.color;
+        color.a = value ? 1 : 0;
+        _spriteRendererGlow.color = color;
+    }
     
     public void OnCreationStart(Transform parent, Vector3 startPosition)
     {
