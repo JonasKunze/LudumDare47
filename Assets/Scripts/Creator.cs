@@ -65,11 +65,12 @@ public class Creator : MonoBehaviour
         for (int i = 0; i < audioData.Count; i++)
         {
             _bluePrints.Add(new SoundPlatformBluePrint(soundPlatformPrefab,
-                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count], name = audioData[i].Title}, (int)BlueprintIndex.PlatformStart + i));
+                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count], name = audioData[i].Title},
+                (int) BlueprintIndex.PlatformStart + i));
         }
 
         OnSetup?.Invoke(activeBlueprintId, _bluePrints.Count - 3);
-        
+
         SerializationHandler.LoadLastSong();
     }
 
@@ -90,7 +91,7 @@ public class Creator : MonoBehaviour
 
             _startMouseWorldPosition = mouseWorldPosition;
 
-            _current = BuildBlueprint(activeBlueprintId);
+            _current = _bluePrints[activeBlueprintId].Build();
             _current.OnCreationStart(spawnParent, mouseWorldPosition);
         }
         else if (_inCreationMode && Input.GetMouseButtonUp(0))
@@ -113,6 +114,8 @@ public class Creator : MonoBehaviour
 
     public IInteractable BuildBlueprint(int bluePrint)
     {
-        return _bluePrints[bluePrint].Build();
+        var obj = _bluePrints[bluePrint].Build();
+        obj.GetTransform().parent = spawnParent;
+        return obj;
     }
 }

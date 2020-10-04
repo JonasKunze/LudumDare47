@@ -61,5 +61,13 @@ namespace DefaultNamespace
         {
             SerializationHandler.SerializeScene();
         }
+
+        public void Clear()
+        {
+            foreach (var platform in GameObject.FindObjectsOfType<SerializableObject>())
+            {
+                Destroy(platform.gameObject);
+            }
+        }
     }
 }
