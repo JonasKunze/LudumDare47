@@ -15,7 +15,7 @@ public class Platform : SerializableObject, IInteractable
 
     private Interactable _interactable = null;
     private float _glowCurrentTime;
-    private readonly float _glowMaxLifeTime = 0.4f;
+    private readonly float _glowMaxLifeTime = 0.6f;
 
     public int blueprintIndex;
 
