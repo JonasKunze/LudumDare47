@@ -8,11 +8,11 @@ public class PlatformHandler : MonoBehaviour
     [SerializeField] private Platform platformPrefab;
 
     [SerializeField] private List<Color> colors;
-    
+
     private readonly List<PlatformProperties> _platformProperties = new List<PlatformProperties>(10);
 
     public static PlatformHandler Instance;
-    
+
     void Start()
     {
         Debug.Assert(Instance == null);
@@ -24,7 +24,7 @@ public class PlatformHandler : MonoBehaviour
     {
         for (int i = 0; i < nAudioClips; i++)
         {
-            PlatformProperties properties = new PlatformProperties{clipIndex = i, color = colors[i % colors.Count]};
+            PlatformProperties properties = new PlatformProperties {clipIndex = i, color = colors[i % colors.Count]};
             _platformProperties.Add(properties);
         }
     }
@@ -33,7 +33,7 @@ public class PlatformHandler : MonoBehaviour
     {
         return _platformProperties.Count;
     }
-    
+
     public Platform CreatePlatform(int index)
     {
         if (index > _platformProperties.Count)
@@ -41,10 +41,10 @@ public class PlatformHandler : MonoBehaviour
             Debug.LogError($"Platform {index} does not exist");
             return null;
         }
-        
+
         var newGo = Instantiate(platformPrefab);
         var platform = newGo.GetComponent<Platform>();
-        platform.SetProperties(_platformProperties[index]);
+        platform.SetProperties(_platformProperties[index], (int) BlueprintIndex.PlatformStart + index);
         return platform;
     }
 

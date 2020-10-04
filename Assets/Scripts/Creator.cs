@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+[Serializable]
 public enum BlueprintIndex
 {
     Spawner = 0,
     Bouncer = 1,
     Bin = 2,
-    PlatformStart = 3
+    SpawnTrigger = 3,
+    PlatformStart = 4
 }
 
 public class Creator : MonoBehaviour
@@ -20,6 +21,7 @@ public class Creator : MonoBehaviour
     [SerializeField] private BouncerPlatform bouncerPlatformPrefab = null;
     [SerializeField] private BallBin ballPortalPrefab = null;
     [SerializeField] private BallSpawner ballSpawnerPrefab = null;
+    [SerializeField] private BallSpawnTrigger ballSpawnTriggerPrefab = null;
 
     [SerializeField] private Transform spawnParent = null;
     [SerializeField] private LayerMask mask;
@@ -53,7 +55,8 @@ public class Creator : MonoBehaviour
         _bluePrints.Add(new BallSpawnerBluePrint(ballSpawnerPrefab));
         _bluePrints.Add(new BouncerPlatformBluePrint(bouncerPlatformPrefab));
         _bluePrints.Add(new BallBinBluePrint(ballPortalPrefab));
-        
+        _bluePrints.Add(new BallSpawnTriggerBluePrint(ballSpawnTriggerPrefab));
+
         SoundHandler.Instance.OnSoundLoaded.AddListener(CreateSoundPlatforms);
     }
 
@@ -62,10 +65,12 @@ public class Creator : MonoBehaviour
         for (int i = 0; i < audioData.Count; i++)
         {
             _bluePrints.Add(new SoundPlatformBluePrint(soundPlatformPrefab,
-                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count], name = audioData[i].Title}));
+                new PlatformProperties {clipIndex = i, color = colors[i % colors.Count], name = audioData[i].Title}, (int)BlueprintIndex.PlatformStart + i));
         }
-        
+
         OnSetup?.Invoke(activeBlueprintId, _bluePrints.Count - 3);
+        
+        SerializationHandler.LoadLastSong();
     }
 
     private void Update()
@@ -85,7 +90,7 @@ public class Creator : MonoBehaviour
 
             _startMouseWorldPosition = mouseWorldPosition;
 
-            _current = _bluePrints[activeBlueprintId].Build();
+            _current = BuildBlueprint(activeBlueprintId);
             _current.OnCreationStart(spawnParent, mouseWorldPosition);
         }
         else if (_inCreationMode && Input.GetMouseButtonUp(0))
@@ -104,5 +109,10 @@ public class Creator : MonoBehaviour
 
             _current.OnCreationUpdate(mouseWorldPosition, _startMouseWorldPosition);
         }
+    }
+
+    public IInteractable BuildBlueprint(int bluePrint)
+    {
+        return _bluePrints[bluePrint].Build();
     }
 }

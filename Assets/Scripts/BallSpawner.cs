@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class BallSpawner : MonoBehaviour, IInteractable
+    public class BallSpawner : SerializableObject, IInteractable
     {
         [SerializeField] private GameObject ballPrefab;
         [SerializeField] private float speedFactor = 10;
@@ -85,5 +85,8 @@ namespace DefaultNamespace
 
         public Transform GetTransform() => transform;
         public Interactable GetInteractable() => _interactable;
+        public override BlueprintIndex GetBlueprintIndex()        {
+            return BlueprintIndex.Spawner;
+        }
     }
 }

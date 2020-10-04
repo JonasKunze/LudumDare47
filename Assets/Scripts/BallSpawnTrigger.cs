@@ -2,7 +2,7 @@
 using DefaultNamespace;
 using UnityEngine;
 
-public class BallSpawnTrigger : MonoBehaviour, IInteractable
+public class BallSpawnTrigger : SerializableObject, IInteractable
 {
     private Interactable _interactable;
 
@@ -50,7 +50,7 @@ public class BallSpawnTrigger : MonoBehaviour, IInteractable
 
         var position = center;
         var rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        
+
         transform.position = position;
         transform.rotation = rotation;
         transform.localScale = new Vector3(dir.magnitude, transform.localScale.y, 0);
@@ -58,4 +58,8 @@ public class BallSpawnTrigger : MonoBehaviour, IInteractable
 
     public Transform GetTransform() => transform;
     public Interactable GetInteractable() => _interactable;
+
+    public override BlueprintIndex GetBlueprintIndex()    {
+        return BlueprintIndex.SpawnTrigger;
+    }
 }

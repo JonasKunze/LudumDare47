@@ -2,7 +2,7 @@
 using DefaultNamespace;
 using UnityEngine;
 
-public class BallBin : MonoBehaviour, IInteractable
+public class BallBin : SerializableObject, IInteractable
 {
     private Interactable _interactable;
 
@@ -50,4 +50,8 @@ public class BallBin : MonoBehaviour, IInteractable
     public Transform GetTransform() => transform;
 
     public Interactable GetInteractable() => _interactable;
+    public override BlueprintIndex GetBlueprintIndex()
+    {
+        return BlueprintIndex.Bin;
+    }
 }
