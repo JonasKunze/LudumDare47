@@ -19,6 +19,8 @@ public class Platform : SerializableObject, IInteractable
     public int blueprintIndex;
 
     private Color _defaultGlowColor;
+
+    [SerializeField] private GameObject _particlesNotesPrefab;
     
     private void Start()
     {
@@ -38,6 +40,15 @@ public class Platform : SerializableObject, IInteractable
         SoundHandler.Instance.PlayClip(properties.clipIndex);
 
         StartCoroutine(GlowCoro());
+
+        SpawnNotesParticles(info);
+    }
+
+    void SpawnNotesParticles(Collision2D info)
+    {
+        var collisionPoint2D = info.GetContact(0).point;
+        var pos = new Vector3(collisionPoint2D.x, collisionPoint2D.y, 0);
+        var go = Instantiate(_particlesNotesPrefab, pos, Quaternion.identity, null);
     }
 
     public void SetActive(bool b) => interactable.SetActive(b);
