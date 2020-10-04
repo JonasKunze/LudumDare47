@@ -11,7 +11,7 @@ public struct PlatformProperties
 public class SoundPlatformBluePrint : IBluePrint
 {
     private readonly SoundPlatform _prefab;
-    private readonly PlatformProperties _properties;
+    public readonly PlatformProperties _properties;
     private readonly int _blueprintIndex;
 
     public SoundPlatformBluePrint(SoundPlatform prefab, in PlatformProperties properties, int blueprintIndex)

@@ -8,7 +8,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private ToggleGroup parent;
         [SerializeField] private ToggleButton toggleButtonPrefab;
-        
+
         public bool running = false;
         public static UnityEvent OnGameStarted = new UnityEvent();
         public static UnityEvent OnGameStopped = new UnityEvent();
@@ -23,7 +23,7 @@ namespace DefaultNamespace
             Creator.OnSetup.AddListener((activeBluePrint, soundPlatformCount) =>
             {
                 int index = 0;
-                
+
                 foreach (var bluePrint in Creator.Instance.BluePrints)
                 {
                     var go = Instantiate(toggleButtonPrefab, parent.transform);
@@ -33,9 +33,13 @@ namespace DefaultNamespace
                     go.SetText(text, text);
                     go.SetColor(bluePrint.GetColor());
                     var index1 = index;
-                    go.onClick.AddListener((() =>
+                    go.onActivated.AddListener((() =>
                     {
                         Creator.Instance.activeBlueprintId = index1;
+                        if (bluePrint is SoundPlatformBluePrint soundBp)
+                        {
+                            SoundHandler.Instance.PlayClip(soundBp._properties.clipIndex);
+                        }
                     }));
 
                     index++;
@@ -45,7 +49,6 @@ namespace DefaultNamespace
 
         public void OnActiveIndexChanged(int newActiveIndex)
         {
-            
         }
 
         public void StartGame()

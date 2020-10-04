@@ -23,7 +23,8 @@ public class Platform : SerializableObject, IInteractable
     
     private void Start()
     {
-        _defaultGlowColor = _spriteRendererGlow.material.GetColor("Color_D1776063");
+        if (_spriteRendererGlow)
+            _defaultGlowColor = _spriteRendererGlow.material.GetColor("Color_D1776063");
     }
 
     public void SetProperties(PlatformProperties p, int blueprintIndex)
@@ -54,27 +55,33 @@ public class Platform : SerializableObject, IInteractable
 
     IEnumerator GlowCoro()
     {
-        _glowCurrentTime = 0;
-
-        while (_glowCurrentTime < _glowMaxLifeTime)
+        if (_spriteRendererGlow)
         {
-            _glowCurrentTime += Time.deltaTime * Mathf.PI / _glowMaxLifeTime;
-            var color = _spriteRendererGlow.color;
-            color.a = Mathf.Sin(_glowCurrentTime);
-            _spriteRendererGlow.color = color;
+            _glowCurrentTime = 0;
 
-            yield return null;
+            while (_glowCurrentTime < _glowMaxLifeTime)
+            {
+                _glowCurrentTime += Time.deltaTime * Mathf.PI / _glowMaxLifeTime;
+                var color = _spriteRendererGlow.color;
+                color.a = Mathf.Sin(_glowCurrentTime);
+                _spriteRendererGlow.color = color;
+
+                yield return null;
+            }
+
+            var c = _spriteRendererGlow.color;
+            c.a = 0;
+            _spriteRendererGlow.color = c;
         }
-
-        var c = _spriteRendererGlow.color;
-        c.a = 0;
-        _spriteRendererGlow.color = c;
     }
 
 
     
     public void SetGlow(bool value, Color color, float intensity)
     {
+        if (!_spriteRendererGlow)
+            return;
+        
         if (value)
         {
             color.r *= intensity;
