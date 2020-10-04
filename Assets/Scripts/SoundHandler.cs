@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,7 +21,7 @@ public class SoundHandler : MonoBehaviour
     [SerializeField] private AudioSource _audioSourcePrefab;
 
     public float BeatTimeDeltaSeconds => 60 / _beatsPerMinute;
-    
+
     private AudioSource _audioSource;
 
     public List<AudioData> AudioData { get; private set; }
@@ -32,11 +33,15 @@ public class SoundHandler : MonoBehaviour
     public UnityEvent<List<AudioData>> OnSoundLoaded;
 
     public UnityEvent BeatTrigger;
-    
+
+    [SerializeField] private TextMeshProUGUI bpmText;
+
+
     private void Awake()
     {
         Debug.Assert(Instance == null);
         Instance = this;
+        bpmText.SetText(_beatsPerMinute + "");
     }
 
     private void Start()
@@ -89,7 +94,7 @@ public class SoundHandler : MonoBehaviour
         if (clip != null)
         {
             Debug.Log($"Loaded file {name}");
-            AudioData.Add(new AudioData{Clip = clip, Title = Path.GetFileNameWithoutExtension(name)});
+            AudioData.Add(new AudioData {Clip = clip, Title = Path.GetFileNameWithoutExtension(name)});
         }
         else
             Debug.LogError($"Failed loading {name}");
@@ -106,6 +111,21 @@ public class SoundHandler : MonoBehaviour
     {
         Debug.Log("All audio clips loaded");
         OnSoundLoaded?.Invoke(AudioData);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus) || Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
+        {
+            _beatsPerMinute += 10;
+            bpmText.SetText(_beatsPerMinute + "");
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.GetKeyDown(KeyCode.Minus))
+        {
+            _beatsPerMinute -= 10;
+            bpmText.SetText(_beatsPerMinute + "");
+        }
     }
 
     private void FixedUpdate()
