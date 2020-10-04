@@ -26,19 +26,19 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
         spriteRenderer.drawMode = SpriteDrawMode.Sliced;
     }
 
-    private Vector2 Left
+    public Vector2 Left
     {
         get => transform.position - transform.right * spriteRenderer.size.x * 0.5f;
         set => SetPosition(value, Right);
     }
 
-    private Vector2 Right
+    public Vector2 Right
     {
         get => transform.position + transform.right * spriteRenderer.size.x * 0.5f;
         set => SetPosition(Left, value);
     }
 
-    private void SetPosition(Vector2 left, Vector2 right)
+    public void SetPosition(Vector2 left, Vector2 right)
     {
         Transform tr = transform;
         

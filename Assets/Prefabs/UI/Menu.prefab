@@ -1263,7 +1263,7 @@ MonoBehaviour:
   toggleOffBText: Play
   background: {fileID: 7007784803748538120}
   isOn: 0
-  onClick:
+  onActivated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7007784803878674384

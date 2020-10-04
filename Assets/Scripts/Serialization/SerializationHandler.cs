@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using DefaultNamespace;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [Serializable]
 class SerializedObject
@@ -11,16 +12,16 @@ class SerializedObject
 
     [SerializeField] SerializedTransform trafo;
 
-    public SerializedObject(BlueprintIndex type, Transform trafo)
+    public SerializedObject(BlueprintIndex type, IInteractable obj)
     {
         this.type = type;
-        this.trafo = trafo.Serialized();
+        trafo = new SerializedTransform(obj);
     }
 
     public void Instantiate()
     {
         var obj = Creator.Instance.BuildBlueprint((int) type);
-        obj.GetTransform().SetTransformFromSerialized(trafo);
+        obj.GetInteractable().SetPosition(trafo.GetLeft(), trafo.GetRight());
     }
 }
 
@@ -50,9 +51,9 @@ public class SerializationHandler
     public static void SerializeScene()
     {
         List<SerializedObject> serializedObjects = new List<SerializedObject>();
-        foreach (var platform in GameObject.FindObjectsOfType<SerializableObject>())
+        foreach (var platform in Object.FindObjectsOfType<SerializableObject>())
         {
-            serializedObjects.Add(new SerializedObject(platform.GetBlueprintIndex(), platform.transform));
+            serializedObjects.Add(new SerializedObject(platform.GetBlueprintIndex(), platform as IInteractable));
         }
 
         var container = new SerializationContainer(serializedObjects);
