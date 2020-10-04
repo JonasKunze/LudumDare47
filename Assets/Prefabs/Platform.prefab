@@ -56,7 +56,7 @@ MonoBehaviour:
   - {x: -0.5035657, y: 0.12143428, z: 0}
   m_ShapePathHash: 1138992291
   m_Mesh: {fileID: 0}
-  m_InstanceId: 72742
+  m_InstanceId: 78378
 --- !u!1 &1436516463674131623
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +359,7 @@ MonoBehaviour:
   centerGo: {fileID: 5353753415700618235}
   spriteRenderer: {fileID: 5353753415678919352}
   _shadowCaster: {fileID: 6777962352183329885}
+  glowSpriteRenderer: {fileID: 8299527189291443425}
 --- !u!114 &-1637852905343406282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +646,7 @@ GameObject:
   - component: {fileID: 4412040690829625613}
   - component: {fileID: 8299527189291443425}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +661,7 @@ Transform:
   m_GameObject: {fileID: 6405537059125603633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9126911865934671993}
   m_RootOrder: 0
@@ -709,8 +710,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 1, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

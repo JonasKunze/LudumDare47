@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
     [SerializeField] private SpriteRenderer spriteRenderer = null;
 
     [SerializeField] private Transform _shadowCaster;
+    [SerializeField] private SpriteRenderer glowSpriteRenderer = null;
     
     private Camera _camera;
     private BoxCollider2D _leftCollider, _rightCollider, _centerCollider;
@@ -73,6 +74,11 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
         if (_shadowCaster)
         {
             _shadowCaster.transform.localScale = new Vector3(scaleFactor, 1, 1);
+        }
+
+        if (glowSpriteRenderer)
+        {
+            glowSpriteRenderer.size = new Vector2(scaleFactor, spriteRenderer.size.y);
         }
     }
 
