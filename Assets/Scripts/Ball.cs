@@ -26,7 +26,7 @@ namespace DefaultNamespace
             while (true)
             {
                 yield return new WaitForSeconds(1);
-                if (transform.position.sqrMagnitude > 100 * 100)
+                if (transform.position.sqrMagnitude > 300 * 300)
                 {
                     Destroy(gameObject);
                 }
