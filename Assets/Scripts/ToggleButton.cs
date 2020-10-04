@@ -12,6 +12,7 @@ public class ToggleButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textComponent;
 
+    [SerializeField] private Sprite toggleOnSprite, toggleOffSprite;
     [SerializeField] private string toggleOnText, toggleOffBText;
     [SerializeField] private Image background = null;
 
@@ -29,7 +30,7 @@ public class ToggleButton : MonoBehaviour
     {
         toggleOnText = onText;
         toggleOffBText = offText;
-
+        
         textComponent.text = isOn ? toggleOnText : toggleOffBText;
     }
 
@@ -39,6 +40,7 @@ public class ToggleButton : MonoBehaviour
     {
         isOn = !isOn;
         textComponent.text = isOn ? toggleOnText : toggleOffBText;
+        background.sprite = isOn ? toggleOnSprite : toggleOffSprite;
 
         if (isOn)
             onActivated?.Invoke();

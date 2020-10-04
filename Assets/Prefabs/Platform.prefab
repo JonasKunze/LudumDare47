@@ -203,7 +203,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -300,6 +300,7 @@ MonoBehaviour:
   leftGo: {fileID: 5353753416759724203}
   rightGo: {fileID: 5353753415033664977}
   centerGo: {fileID: 5353753415700618235}
+  spriteRenderer: {fileID: 5353753415678919352}
 --- !u!114 &27211508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +326,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.125, z: 0}
   m_ShapePathHash: 831911189
   m_Mesh: {fileID: 0}
-  m_InstanceId: 31630
+  m_InstanceId: 30768
 --- !u!114 &-1637852905343406282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca134b40a3844ed832edf7454e40c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 5353753415333854823}
   _spriteRenderer: {fileID: 5353753415678919352}
   _spriteRendererGlow: {fileID: 8299527189291443425}
   blueprintIndex: 0
@@ -558,7 +558,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
