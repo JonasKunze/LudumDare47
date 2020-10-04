@@ -45,6 +45,8 @@ class SerializationContainer
 
 public class SerializationHandler
 {
+    private static readonly string lastSongFileName = "lastSong.json";
+
     public static void SerializeScene()
     {
         List<SerializedObject> serializedObjects = new List<SerializedObject>();
@@ -56,14 +58,14 @@ public class SerializationHandler
         var container = new SerializationContainer(serializedObjects);
         string json = JsonUtility.ToJson(container);
 
-        var file = File.CreateText(Application.persistentDataPath + "lastSong");
+        var file = File.CreateText(Application.persistentDataPath + "/" + lastSongFileName);
         file.Write(json);
         file.Close();
     }
 
     public static void LoadLastSong()
     {
-        var file = Application.persistentDataPath + "lastSong";
+        var file = Application.persistentDataPath + "/" + lastSongFileName;
         if (File.Exists(file))
         {
             var sr = File.OpenText(file);
