@@ -5,6 +5,7 @@ using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ToggleButton : MonoBehaviour
@@ -13,11 +14,11 @@ public class ToggleButton : MonoBehaviour
 
     [SerializeField] private string toggleOnText, toggleOffBText;
     [SerializeField] private Image background = null;
-    
+
     [SerializeField] private bool isOn = false;
 
-    public UnityEvent onClick = new UnityEvent();
-    
+    [FormerlySerializedAs("onClick")] public UnityEvent onActivated = new UnityEvent();
+
     private void Awake()
     {
         isOn = true;
@@ -28,7 +29,7 @@ public class ToggleButton : MonoBehaviour
     {
         toggleOnText = onText;
         toggleOffBText = offText;
-        
+
         textComponent.text = isOn ? toggleOnText : toggleOffBText;
     }
 
@@ -38,15 +39,17 @@ public class ToggleButton : MonoBehaviour
     {
         isOn = !isOn;
         textComponent.text = isOn ? toggleOnText : toggleOffBText;
-        
-        onClick?.Invoke();
+
+        if (isOn)
+            onActivated?.Invoke();
     }
 
     public void SetToggle(bool on)
     {
         isOn = on;
         textComponent.text = isOn ? toggleOnText : toggleOffBText;
-        
-        onClick?.Invoke();
+
+        if (isOn)
+            onActivated?.Invoke();
     }
 }
