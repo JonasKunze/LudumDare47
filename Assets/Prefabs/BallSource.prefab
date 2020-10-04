@@ -133,6 +133,7 @@ MonoBehaviour:
   leftGo: {fileID: 5154660187503259583}
   rightGo: {fileID: 7021488107565583189}
   centerGo: {fileID: 7730170613236232821}
+  spriteRenderer: {fileID: 1273796721609828829}
 --- !u!114 &7790929129189900779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +193,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -268,7 +269,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

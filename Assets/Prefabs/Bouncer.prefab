@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -247,6 +247,7 @@ MonoBehaviour:
   leftGo: {fileID: 4350272428317993638}
   rightGo: {fileID: 4350272429775591388}
   centerGo: {fileID: 4350272429410499062}
+  spriteRenderer: {fileID: 4350272429398761653}
 --- !u!114 &6959907976544920375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b66b166d8646e8bb9a1583602e818e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 4350272429607394410}
   _spriteRenderer: {fileID: 0}
+  _spriteRendererGlow: {fileID: 0}
+  blueprintIndex: 0
+  _particlesNotesPrefab: {fileID: 0}
 --- !u!1 &4350272429775591388
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +308,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.125, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
