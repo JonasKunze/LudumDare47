@@ -48,6 +48,8 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
         tr.rotation = Quaternion.FromToRotation(Vector3.right, delta);
         SetScale(delta.magnitude);
     }
+    
+    public Vector2 GetScale() => transform.right.normalized * spriteRenderer.size.x;
 
     private void SetScale(float scaleFactor)
     {
