@@ -42,6 +42,22 @@ public class SoundHandler : MonoBehaviour
         Debug.Assert(Instance == null);
         Instance = this;
         bpmText.SetText(_beatsPerMinute + "");
+        BeatTrigger.AddListener(() => { StartCoroutine(BpmTextPulseAnimator()); });
+    }
+
+    private IEnumerator BpmTextPulseAnimator()
+    {
+        var scale = bpmText.transform.localScale;
+        bpmText.transform.localScale = scale * 2f;
+
+        float t = 0;
+        while (t < SoundHandler.Instance.BeatTimeDeltaSeconds / 4)
+        {
+            t += Time.deltaTime;
+
+            bpmText.transform.localScale = 0.4f * scale + 0.6f * bpmText.transform.localScale;
+            yield return new WaitForSeconds(SoundHandler.Instance.BeatTimeDeltaSeconds / 16);
+        }
     }
 
     private void Start()
