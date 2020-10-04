@@ -46,7 +46,8 @@ class SerializationContainer
 
 public class SerializationHandler
 {
-    private static readonly string lastSongFileName = "lastSong.json";
+    private static readonly string lastSongFileName = "Level.json";
+    public static readonly string Dir = Application.persistentDataPath;
 
     public static void SerializeScene()
     {
@@ -59,24 +60,20 @@ public class SerializationHandler
         var container = new SerializationContainer(serializedObjects);
         string json = JsonUtility.ToJson(container);
 
-        var file = File.CreateText(Application.persistentDataPath + "/" + lastSongFileName);
+        var fileName = $"Level {DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}.json";
+        var fullPath = GetFullPath(fileName);
+        var file = File.CreateText(fullPath);
         file.Write(json);
         file.Close();
+        
+        Creator.Instance.SaveLevel(in fullPath);
     }
 
-    public static void LoadLastSong()
+    public static string GetFullPath(in string fileName) => Path.Combine(Dir, fileName);
+    
+    public static string[] GetUserLevels()
     {
-        var file = Application.persistentDataPath + "/" + lastSongFileName;
-        if (File.Exists(file))
-        {
-            var sr = File.OpenText(file);
-            var json = sr.ReadToEnd();
-            var obj = JsonUtility.FromJson<SerializationContainer>(json);
-            obj.Instantiate();
-        }
-        else
-        {
-            Debug.Log("Could not Open the file: " + file + " for reading.");
-        }
+        var files = Directory.GetFiles(Dir, "*.json");
+        return files;
     }
 }

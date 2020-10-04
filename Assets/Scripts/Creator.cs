@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,7 +29,8 @@ public class Creator : MonoBehaviour
     [SerializeField] private LayerMask mask;
 
     private readonly List<IBluePrint> _bluePrints = new List<IBluePrint>();
-
+    private List<string> _levels;
+    
     [SerializeField] private List<Color> colors;
 
     public static Creator Instance;
@@ -42,6 +45,8 @@ public class Creator : MonoBehaviour
     public List<IBluePrint> BluePrints => _bluePrints;
 
     public static UnityEvent<int, int> OnSetup = new UnityEvent<int, int>();
+    public static UnityEvent<List<string>> OnLevelSetup = new UnityEvent<List<string>>();
+    public static UnityEvent<string> OnLevelAdded = new UnityEvent<string>();
 
     private void Awake()
     {
@@ -57,6 +62,8 @@ public class Creator : MonoBehaviour
         _bluePrints.Add(new BallBinBluePrint(ballPortalPrefab));
         _bluePrints.Add(new BallSpawnTriggerBluePrint(ballSpawnTriggerPrefab));
 
+        _levels = new List<string>();
+        
         SoundHandler.Instance.OnSoundLoaded.AddListener(CreateSoundPlatforms);
     }
 
@@ -70,8 +77,50 @@ public class Creator : MonoBehaviour
         }
 
         OnSetup?.Invoke(activeBlueprintId, _bluePrints.Count - 3);
+        
+        var defaultLevels = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, "DefaultLevels"), "*.json");
+        var userLevels = SerializationHandler.GetUserLevels();
+        
+        _levels.AddRange(defaultLevels);
+        _levels.AddRange(userLevels);
 
-        SerializationHandler.LoadLastSong();
+        var levelNames = _levels.Select(Path.GetFileNameWithoutExtension).ToList();
+        OnLevelSetup?.Invoke(levelNames);
+        
+        if (_levels.Count != 0)
+            LoadLevel(0);
+    }
+    
+    public void SaveLevel(in string fullPath)
+    {
+        if (_levels.Contains(fullPath))
+            return;
+        
+        _levels.Add(fullPath);
+        
+        OnLevelAdded?.Invoke(Path.GetFileNameWithoutExtension(fullPath));
+    }
+    
+    public void LoadLevel(int index)
+    {
+        LoadLevel(_levels[index]);
+    }
+    
+    public void LoadLevel(in string fullFilePath)
+    {
+        if (File.Exists(fullFilePath))
+        {
+            Clear();
+            
+            var sr = File.OpenText(fullFilePath);
+            var json = sr.ReadToEnd();
+            var obj = JsonUtility.FromJson<SerializationContainer>(json);
+            obj.Instantiate();
+        }
+        else
+        {
+            Debug.LogError("Could not Open the file: " + fullFilePath + " for reading.");
+        }
     }
 
     private void Update()
@@ -117,5 +166,13 @@ public class Creator : MonoBehaviour
         var obj = _bluePrints[bluePrint].Build();
         obj.GetTransform().parent = spawnParent;
         return obj;
+    }
+    
+    public void Clear()
+    {
+        foreach (var platform in FindObjectsOfType<SerializableObject>())
+        {
+            Destroy(platform.gameObject);
+        }
     }
 }

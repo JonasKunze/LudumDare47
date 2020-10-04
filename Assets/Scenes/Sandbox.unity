@@ -154,10 +154,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6734910882265851749, guid: fdf24dea0c66f7346bf5aa08e7f50561, type: 3}
-      propertyPath: m_ScrollSensitivity
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7007784802451518956, guid: fdf24dea0c66f7346bf5aa08e7f50561, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
