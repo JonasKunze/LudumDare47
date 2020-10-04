@@ -27,6 +27,8 @@ public class Menu : MonoBehaviour
         {
             int index = 0;
 
+            Toggle toggleToSetActive = null;
+
             foreach (var bluePrint in Creator.Instance.BluePrints)
             {
                 var go = Instantiate(toggleButtonPrefab, parent.transform);
@@ -45,8 +47,15 @@ public class Menu : MonoBehaviour
                     }
                 }));
 
+                if (index == activeBluePrint)
+                    toggleToSetActive = toggle;
+
                 index++;
             }
+            
+            parent.SetAllTogglesOff();
+            Debug.Assert(toggleToSetActive != null);
+            toggleToSetActive.isOn = true;
         });
         
         levelDropdown.ClearOptions();
