@@ -10,6 +10,8 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
 
     [SerializeField] private GameObject leftGo, rightGo, centerGo;
     [SerializeField] private SpriteRenderer spriteRenderer = null;
+
+    [SerializeField] private Transform _shadowCaster;
     
     private Camera _camera;
     private BoxCollider2D _leftCollider, _rightCollider, _centerCollider;
@@ -67,6 +69,11 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
         _leftCollider.size = new Vector2(0.25f * scaleFactor, _leftCollider.size.y);
         _rightCollider.size = new Vector2( 0.25f * scaleFactor, _rightCollider.size.y);
         _centerCollider.size = new Vector2( 0.5f * scaleFactor, _centerCollider.size.y);
+
+        if (_shadowCaster)
+        {
+            _shadowCaster.transform.localScale = new Vector3(scaleFactor, 1, 1);
+        }
     }
 
     public void SetActive(bool value)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Platform : SerializableObject, IInteractable
 {
@@ -20,6 +22,8 @@ public class Platform : SerializableObject, IInteractable
     private Color _defaultGlowColor;
 
     [SerializeField] private GameObject _particlesNotesPrefab;
+
+    [SerializeField] private ShadowCaster2D _shadowCaster;
     
     private void Start()
     {
