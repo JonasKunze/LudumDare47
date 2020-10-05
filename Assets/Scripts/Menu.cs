@@ -12,6 +12,8 @@ public class Menu : MonoBehaviour
     [SerializeField] private ToggleButton toggleButtonPrefab;
     [SerializeField] private TMP_Dropdown levelDropdown;
 
+    [SerializeField] private ToggleButton playPauseButton;
+    
     public bool running = false;
     public static UnityEvent OnGameStarted = new UnityEvent();
     public static UnityEvent OnGameStopped = new UnityEvent();
@@ -70,7 +72,16 @@ public class Menu : MonoBehaviour
             levelDropdown.options.Add(new TMP_Dropdown.OptionData(level));
         });
         
-        levelDropdown.onValueChanged.AddListener(index => Creator.Instance.LoadLevel(index));
+        levelDropdown.onValueChanged.AddListener(index =>
+        {
+            Creator.Instance.LoadLevel(index);
+            if (!running)
+                return;
+        
+            playPauseButton.Toggle();
+            OnGameStopped?.Invoke();
+            running = false;
+        });
     }
 
     public void StartGame()
@@ -87,7 +98,17 @@ public class Menu : MonoBehaviour
         SerializationHandler.SerializeScene();
     }
 
-    public void Clear() => Creator.Instance.Clear();
+    public void Clear()
+    {
+        Creator.Instance.Clear();
+       
+        if (!running)
+            return;
+        
+        playPauseButton.Toggle();
+        OnGameStopped?.Invoke();
+        running = false;
+    }
 
     public void CloseApp() => Application.Quit();
 }

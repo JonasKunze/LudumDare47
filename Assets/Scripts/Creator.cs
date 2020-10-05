@@ -171,8 +171,9 @@ public class Creator : MonoBehaviour
     public void Clear()
     {
         foreach (var platform in FindObjectsOfType<SerializableObject>())
-        {
             Destroy(platform.gameObject);
-        }
+
+        foreach (var ball in FindObjectsOfType<Ball>())
+            Destroy(ball.gameObject);
     }
 }
