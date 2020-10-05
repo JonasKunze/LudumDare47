@@ -14,7 +14,7 @@ public class Background : MonoBehaviour
     void Update()
     {
         var orthographicSize = _cam.orthographicSize;
-        transform.position = new Vector3(_cam.transform.position.x, _cam.transform.hierarchyCapacity, transform.position.z);
+        transform.position = new Vector3(_cam.transform.position.x, _cam.transform.position.y, transform.position.z);
         transform.localScale = new Vector3(10 *orthographicSize, 10*orthographicSize, 1);
     }
 }
