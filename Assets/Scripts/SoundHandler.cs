@@ -133,13 +133,14 @@ public class SoundHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.KeypadPlus) || Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.Equals))
         {
-            _beatsPerMinute += 10;
+            _beatsPerMinute = _beatsPerMinute = Mathf.Clamp(_beatsPerMinute + 10, 10, 500);
             bpmText.SetText(_beatsPerMinute + "");
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.GetKeyDown(KeyCode.Minus))
         {
-            _beatsPerMinute -= 10;
+            _beatsPerMinute = _beatsPerMinute = Mathf.Clamp(_beatsPerMinute - 10, 10, 500);
+
             bpmText.SetText(_beatsPerMinute + "");
         }
     }
