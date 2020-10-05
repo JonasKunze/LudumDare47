@@ -88,4 +88,6 @@ public class Menu : MonoBehaviour
     }
 
     public void Clear() => Creator.Instance.Clear();
+
+    public void CloseApp() => Application.Quit();
 }
