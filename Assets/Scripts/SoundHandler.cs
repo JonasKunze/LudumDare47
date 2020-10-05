@@ -36,27 +36,36 @@ public class SoundHandler : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI bpmText;
 
+    private Vector3 _defaultScale;
+    private Coroutine _coroutine;
 
     private void Awake()
     {
         Debug.Assert(Instance == null);
         Instance = this;
         bpmText.SetText(_beatsPerMinute + "");
-        BeatTrigger.AddListener(() => { StartCoroutine(BpmTextPulseAnimator()); });
+
+        _defaultScale = bpmText.transform.localScale;
+        
+        BeatTrigger.AddListener(() =>
+        {
+            if (_coroutine != null)
+                StopCoroutine(_coroutine);
+            _coroutine = StartCoroutine(BpmTextPulseAnimator());
+        });
     }
 
     private IEnumerator BpmTextPulseAnimator()
     {
-        var scale = bpmText.transform.localScale;
-        bpmText.transform.localScale = scale * 2f;
+        bpmText.transform.localScale = _defaultScale * 2f;
 
         float t = 0;
-        while (t < SoundHandler.Instance.BeatTimeDeltaSeconds / 4)
+        while (t < BeatTimeDeltaSeconds / 4)
         {
             t += Time.deltaTime;
 
-            bpmText.transform.localScale = 0.4f * scale + 0.6f * bpmText.transform.localScale;
-            yield return new WaitForSeconds(SoundHandler.Instance.BeatTimeDeltaSeconds / 16);
+            bpmText.transform.localScale = 0.4f * _defaultScale + 0.6f * bpmText.transform.localScale;
+            yield return new WaitForSeconds(BeatTimeDeltaSeconds / 16);
         }
     }
 
