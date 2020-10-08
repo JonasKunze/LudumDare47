@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, IDragHandler, IBeginDragHandler,
+    IEndDragHandler
 {
     private Vector2 _lastGrabWorldPos;
+    private Vector2 _grabStartDelta;
     private GameObject _grabbedObject;
 
     public static bool IsDragging;
@@ -13,14 +15,14 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
 
     [SerializeField] private Transform _shadowCaster;
     [SerializeField] private SpriteRenderer glowSpriteRenderer = null;
-    
+
     private Camera _camera;
     private BoxCollider2D _leftCollider, _rightCollider, _centerCollider;
 
     private void Awake()
     {
         _camera = Camera.main;
-      
+
         _leftCollider = leftGo.GetComponent<BoxCollider2D>();
         _rightCollider = rightGo.GetComponent<BoxCollider2D>();
         _centerCollider = centerGo.GetComponent<BoxCollider2D>();
@@ -43,15 +45,18 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
 
     public void SetPosition(Vector2 left, Vector2 right)
     {
+        left = new Vector2(Mathf.Round(left.x * 10) / 10f, Mathf.Round(left.y * 10) / 10f);
+        right = new Vector2(Mathf.Round(right.x * 10) / 10f, Mathf.Round(right.y * 10) / 10f);
+
         Transform tr = transform;
-        
+
         var delta = right - left;
         tr.position = (left + right) / 2;
-       
+
         tr.rotation = Quaternion.FromToRotation(Vector3.right, delta);
         SetScale(delta.magnitude);
     }
-    
+
     public Vector2 GetScale() => transform.right.normalized * spriteRenderer.size.x;
 
     private void SetScale(float scaleFactor)
@@ -59,17 +64,17 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
         spriteRenderer.size = new Vector2(scaleFactor, spriteRenderer.size.y);
 
         var sizeX = (scaleFactor * 0.5f);
-        
+
         var leftColliderPosition = -Vector3.right * (sizeX - (0.125f * scaleFactor));
         var rightColliderPosition = Vector3.right * (sizeX - (0.125f * scaleFactor));
 
         leftGo.transform.localPosition = leftColliderPosition;
         rightGo.transform.localPosition = rightColliderPosition;
         centerGo.transform.position = transform.position;
-        
+
         _leftCollider.size = new Vector2(0.25f * scaleFactor, _leftCollider.size.y);
-        _rightCollider.size = new Vector2( 0.25f * scaleFactor, _rightCollider.size.y);
-        _centerCollider.size = new Vector2( 0.5f * scaleFactor, _centerCollider.size.y);
+        _rightCollider.size = new Vector2(0.25f * scaleFactor, _rightCollider.size.y);
+        _centerCollider.size = new Vector2(0.5f * scaleFactor, _centerCollider.size.y);
 
         if (_shadowCaster)
         {
@@ -95,7 +100,7 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
     {
         if (eventData.button != PointerEventData.InputButton.Right)
             return;
-        
+
         if (this)
             Destroy(gameObject);
     }
@@ -104,42 +109,43 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
     {
         if (IsDragging)
             return;
-        
+
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
         IsDragging = eventData.pointerEnter != null;
-        
+
         if (!IsDragging)
             return;
-        
+
         _grabbedObject = eventData.pointerEnter.gameObject;
         _lastGrabWorldPos = _camera.ScreenToWorldPoint(eventData.position);
+        _grabStartDelta = (Vector2)_grabbedObject.transform.position - _lastGrabWorldPos;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!IsDragging)
             return;
-        
+
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
-        
+
         var newPos = (Vector2) _camera.ScreenToWorldPoint(eventData.position);
         var delta = newPos - _lastGrabWorldPos;
         _lastGrabWorldPos = newPos;
-        
+
         if (_grabbedObject == centerGo)
         {
             transform.position += new Vector3(delta.x, delta.y, 0);
         }
         else if (_grabbedObject == rightGo)
         {
-            Right += delta;
+            Right = newPos+_grabStartDelta;
         }
         else if (_grabbedObject == leftGo)
         {
-            Left += delta;
+            Left = newPos+_grabStartDelta;
         }
     }
 
@@ -173,7 +179,7 @@ public class Interactable : MonoBehaviour, IInteractable, IPointerClickHandler, 
 
         var position = center;
         var rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        
+
         transform.SetPositionAndRotation(position, rotation);
         SetScale(dir.magnitude);
     }
